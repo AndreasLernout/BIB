@@ -1,0 +1,36 @@
+﻿@model IEnumerable<UitleenobjectDetailViewModel>
+@{
+ViewData["Title"] = "Index";
+}
+<h2>Uitleenobjecten</h2>
+@if (Model == null || Model.Count()==0) {
+    <h3>Er zijn geen uitleenobjecten geregistreerd.</h3>
+}
+else{
+<table class="table table-bordered">
+        <thead>
+            <tr>
+                <td></td>
+                <td>Naam</td>
+                <td>Kostprijs</td>
+                <td>Jaar</td>
+                <td>Status</td>
+                <td>Details</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        <a asp-action="Detail" asp-route-id="@item.Id">@item.Id</a>
+                    </td>
+                    <td>@item.Type @item.Naam</td>
+                    <td>@Html.DisplayFor(m => item.Kostprijs)</td>
+                    <td>@item.Jaar</td>
+                    <td>@item.Status</td>
+                    <td>@item.Details</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

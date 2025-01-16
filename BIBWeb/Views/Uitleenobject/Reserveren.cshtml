@@ -1,0 +1,40 @@
+﻿@model ReserveerViewModel
+@{
+ViewData["Title"] = "Reserveren";
+}
+<h2>@Model.Naam</h2>
+<img class="afbeelding" src="@Model.ImageUrl" />
+<p>Reserveringen</p>
+@if (Model.Reserveringen.Count() == 0) {
+    <p>Er zijn momenteel geen reserveringen.</p>
+}
+else {
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>Naam</td>
+                <td>Datum</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var res in Model.Reserveringen) {
+                <tr>
+                    <td>@res.Lener.Voornaam @res.Lener.Familienaam</td>
+                    <td>@res.GereserveerdOp</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<form asp-action="ItemReserveren" asp-route-itemId="@Model.ItemId" method="post">
+    <div>
+        <label asp-for="@Model.GekozenLenerId" class="form-label">
+            Selecteer een lener :
+        </label>
+        <select asp-for="@Model.GekozenLenerId" class="form-control" asp-items="@Model.Leners"></select>
+    </div>
+    <button type="submit" class="btn btn-success btn-lg mt-4">
+        Reserveren
+    </button>
+</form>

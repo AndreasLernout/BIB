@@ -1,0 +1,49 @@
+﻿@model LenerDetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+@if (Model != null) {
+    <h2>Lener @Model.Lener.Voornaam @Model.Lener.Familienaam</h2>
+    <p>Geboortedatum : @Html.DisplayFor(m => Model.Lener.Geboortedatum)</p>
+    <p>Adres : @Model.Lener.Adres</p>
+    <p>Telefoonnr : @Model.Lener.Telefoonnr</p>
+    <p>Aantal openstaande uitleningen : @(Model.OpenstaandeUitleningen.Count())</p>
+
+    @if (Model.OpenstaandeUitleningen.Count() != 0) {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>Object</td>
+                    <td>Sinds</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var uitlening in Model.OpenstaandeUitleningen) {
+                    <tr>
+                        <td>@uitlening.Uitleenobject.Naam</td>
+                        <td>@uitlening.Van</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    <p>Aantal reserveringen : @(Model.Reserveringen.Count())</p>
+    @if (Model.Reserveringen.Count() != 0) {
+        <table class="table table-bordered">
+            <thead>
+                <tr><td>Object</td><td>Gereserveerd op</td></tr>
+            </thead>
+            <tbody>
+                @foreach (var reservering in Model.Reserveringen) {
+                    <tr>
+                        <td>@reservering.Uitleenobject.Naam</td>
+                        <td>@reservering.GereserveerdOp</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+else {
+    <p class="btn btn-danger">@ViewBag.ErrorMessage</p>
+}

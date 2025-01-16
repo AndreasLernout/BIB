@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Lener>
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Leners</h2>
+@if (Model == null || Model.Count() == 0) {
+    <h3>Er zijn geen leners geregistreerd.</h3>
+}
+else {
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td></td>
+                <td>Voornaam</td>
+                <td>Familienaam</td>
+                <td>Adres</td>
+                <td>Geboortedatum</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var lener in Model) {
+                <tr>
+                    <td>
+                        <a asp-action="Detail"
+                           asp-route-id="@lener.Id">@lener.Id</a>
+                    </td>
+                    <td>@lener.Voornaam</td>
+                    <td>@lener.Familienaam</td>
+                    <td>@lener.Adres</td>
+                    <td>@Html.DisplayFor(m => lener.Geboortedatum)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
